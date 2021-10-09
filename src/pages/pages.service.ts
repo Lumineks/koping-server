@@ -5,5 +5,9 @@ import { Page, PageDocument } from './entities/pages.entity';
 
 @Injectable()
 export class PagesService {
-  constructor(@InjectModel(Page.name) private PageModel: Model<PageDocument>) {}
+  constructor(@InjectModel(Page.name) private PageModel: Model<PageDocument>) { }
+  
+  async findAll(): Promise<Page[]> {
+    return this.PageModel.find().exec();
+  }
 }
