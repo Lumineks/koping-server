@@ -1,9 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
+import { PagesService } from './pages.service';
 
-@Controller('')
+@Controller('pages')
 export class PagesController {
+  constructor(private pagesService: PagesService) { }
+  
   @Get()
-  getIndexPage() {
-    
+  @Render('index')
+  async getIndexPage() {
+    const pages = await this.pagesService.findAll();
+    console.log(pages);
+    const pageTitle = pages[0].pageTitle;
+    return { message: pageTitle };
   }
 }
